@@ -75,8 +75,9 @@
     <section id="value" class="value-prop-section" aria-labelledby="value-title">
       <div class="container value-prop">
         <div class="vp-text">
-          <h2 id="value-title">效果好、用得起的数字人</h2>
-          <p>端侧实时推理 + 云端参数驱动，带来更低延迟、更优效果与更可控的成本。</p>
+          <h2 id="value-title">效果好、用得起的实时交互数字人</h2>
+          <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mt-4 mb-8">端侧实时推理 + 云端参数驱动，带来更低延迟、更优效果与更可控的成本。</p>
+          <p></p>
           <div class="vp-actions">
             <a href="#contact" class="cta-button">预约演示</a>
             <a href="#technology" class="cta-button cta-secondary">了解技术</a>
@@ -84,8 +85,17 @@
         </div>
         <div class="vp-video">
           <video id="value-demo" class="vp-player"
-                 src="assets/demos/placeholder-vertical.mp4"
-                 preload="metadata" playsinline muted controls></video>
+                 src="assets/videos/breath_state.mov"
+                 preload="auto" 
+                  autoplay 
+                    muted 
+                    loop
+                    playsinline
+                    poster="https://placehold.co/1920x1080/2d3748/ffffff?text=Loading..."></video>
+
+                 <!-- playsinline muted controls -->
+
+                   
         </div>
       </div>
     </section>
@@ -179,11 +189,11 @@
        
         <div class="tech-tilt-row">
           <article class="tilt-card tilt-left" data-video="assets/videos/breath_state.mov" tabindex="0" role="button">
-            <div class="tilt-media"><video preload="metadata" playsinline muted controls></video></div>
+            <div class="tilt-media"><video preload="autoplay" playsinline muted controls></video></div>
             <div class="tilt-text"><h3>有呼吸</h3><p> 当AI等待你的指令时，它会像真人一样轻轻地呼吸、眨眼、调整重心</p></div>
           </article>
           <article class="tilt-card tilt-center" data-video="assets/videos/listening_state.mov" tabindex="0" role="button">
-            <div class="tilt-media"><video preload="metadata" playsinline muted controls></video></div>
+            <div class="tilt-media"><video preload="autoplay" playsinline muted controls></video></div>
             <div class="tilt-text"><h3>会聆听</h3><p>当你的声音响起，它会报以专注的眼神和微小的点头，如同老友倾听你的故事</p></div>
           </article>
      <!--      <article class="tilt-card tilt-right" data-video="assets/tech/tech3.mp4" tabindex="0" role="button">

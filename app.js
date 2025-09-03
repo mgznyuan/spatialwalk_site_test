@@ -36,22 +36,83 @@ if (hamburger && mobileMenu) {
   }
 })();
 
+/* ================= Landing Video Aspect Ratio (Fixed) ================= */
+// We wrap this in a DOMContentLoaded event to ensure the element exists when we try to select it.
+document.addEventListener('DOMContentLoaded', () => {
+  const videoPlayer = document.getElementById('value-demo');
+  if (videoPlayer) {
+    // This event fires when the browser has loaded metadata for the video.
+    videoPlayer.addEventListener('loadedmetadata', () => {
+      const videoWidth = videoPlayer.videoWidth;
+      const videoHeight = videoPlayer.videoHeight;
+      // We check for valid dimensions to avoid errors.
+      if (videoWidth > 0 && videoHeight > 0) {
+        // We remove the fixed aspect ratio from the parent container and set it on the video itself.
+        if (videoPlayer.parentElement) {
+            videoPlayer.parentElement.style.aspectRatio = 'auto';
+        }
+        videoPlayer.style.aspectRatio = `${videoWidth} / ${videoHeight}`;
+      }
+    });
+    // This handles cases where the video might already be loaded (e.g., from cache).
+    if (videoPlayer.readyState >= 1) {
+        videoPlayer.dispatchEvent(new Event('loadedmetadata'));
+    }
+  }
+});
 
 
-/* ===== 合作伙伴：无缝滚动 + 悬停提示 ===== */
+/* ===== 技术优势卡片交互 (全部自动播放) ===== */
+(() => {
+  const cards = document.querySelectorAll('.tech-tilt-row .tilt-card');
+  if (!cards || cards.length === 0) return;
+
+  function setupAndPlayAllVideos() {
+    cards.forEach(card => {
+      const video = card.querySelector('video');
+      const src = card.getAttribute('data-video');
+      if (video && src) {
+        // Set video attributes
+        video.src = src;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        
+        // Attempt to play the video
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // Autoplay was prevented.
+            console.warn("Autoplay was prevented for video:", src, error);
+          });
+        }
+      }
+    });
+  }
+
+  // Call the function to set up and play all videos on page load
+  setupAndPlayAllVideos();
+
+  // The click-to-play interaction has been removed as all videos now autoplay.
+})();
+
+/* ===== 合作伙伴：无缝滚动 + 悬停提示 (代码保留，但HTML中已隐藏) ===== */
 (() => {
   const track = document.getElementById('partners-track');
   if (!track) return;
   // 复制一份以实现无缝滚动
-  track.innerHTML += track.innerHTML;
+  const originalContent = track.innerHTML;
+  track.innerHTML += originalContent;
 
   const tooltip = document.getElementById('logo-tooltip');
-  const nameEl  = tooltip?.querySelector('.logo-tooltip__name');
-  const descEl  = tooltip?.querySelector('.logo-tooltip__desc');
-  const linkEl  = tooltip?.querySelector('.logo-tooltip__link');
+  if (!tooltip) return;
+  
+  const nameEl  = tooltip.querySelector('.logo-tooltip__name');
+  const descEl  = tooltip.querySelector('.logo-tooltip__desc');
+  const linkEl  = tooltip.querySelector('.logo-tooltip__link');
 
   function showTip(a, x, y){
-    if (!tooltip) return;
+    if (!nameEl || !descEl || !linkEl) return;
     nameEl.textContent = a.dataset.name || a.querySelector('img')?.alt || '合作伙伴';
     descEl.textContent = a.dataset.desc || '';
     linkEl.href = a.href || '#';
@@ -80,49 +141,3 @@ if (hamburger && mobileMenu) {
   }, {passive:true});
 })();
 
-
-/* ===== 技术优势：点击放大、加边框并播放视频 ===== */
-
-(() => {
-  const cards = document.querySelectorAll('.tech-tilt-row .tilt-card');
-  if (!cards || cards.length === 0) return;
-
-  // 默认激活中间的卡片
-  const initialActiveCard = cards[1] || cards[0];
-  
-  function setActiveCard(cardToActivate) {
-    // 遍历所有卡片
-    cards.forEach(card => {
-      const video = card.querySelector('video');
-      if (card === cardToActivate) {
-        // 对要激活的卡片：添加 active 类并播放视频
-        card.classList.add('active-card');
-        if (video) {
-          const src = card.getAttribute('data-video');
-          if (src && !video.src) {
-            video.src = src;
-          }
-          video.muted = true;
-          video.playsInline = true;
-          video.play().catch(() => {}); // 播放视频
-        }
-      } else {
-        // 对其他卡片：移除 active 类并暂停视频
-        card.classList.remove('active-card');
-        if (video) {
-          video.pause(); // 暂停视频
-        }
-      }
-    });
-  }
-
-  // 为每张卡片添加点击事件
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      setActiveCard(card);
-    });
-  });
-
-  // 页面加载时，自动激活初始卡片
-  setActiveCard(initialActiveCard);
-})();

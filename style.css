@@ -391,8 +391,8 @@ a:hover { color: #9C4C88; }
   /* 关键更新：使用 border-image 实现渐变边框。
      这样可以完全分离边框和背景，确保背景就是 .tilt-card 定义的白色半透明毛玻璃效果。
   */
-  border-image-source: linear-gradient(135deg, var(--accent-d), var(--accent-c), var(--accent-b));
-  border-image-slice: 1;
+ /* border-image-source: linear-gradient(135deg, var(--accent-d), var(--accent-c), var(--accent-b));
+  border-image-slice: 1;*/
 }
 @media (max-width: 960px) {
   #technology { min-height: auto; padding: 4rem 1rem; }
@@ -482,3 +482,34 @@ a:hover { color: #9C4C88; }
 }
 
 
+/* ... other styles ... */
+.tilt-card {
+  position: relative; /* 新增：为伪元素定位 */
+  overflow: hidden;   /* 新增：确保圆角裁切伪元素 */
+  background-color: rgba(255, 255, 255, .4);
+  /* ... rest of the styles ... */
+}
+
+.active-card {
+  transform: scale(1.05);
+  box-shadow: 0 18px 60px rgba(34, 18, 69, .22);
+  /* 移除这两行:
+  border-image-source: linear-gradient(135deg, var(--accent-d), var(--accent-c), var(--accent-b));
+  border-image-slice: 1;
+  */
+}
+
+/* 新增这段样式 */
+.active-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: -2px; /* 等于边框宽度 */
+  border-radius: inherit; /* 继承父元素的圆角 */
+  background: linear-gradient(135deg, var(--accent-d), var(--accent-c), var(--accent-b));
+}
+/* ... other styles ... */
