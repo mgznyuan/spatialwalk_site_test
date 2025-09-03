@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpatialWalk - 效果好、用得起的数字人</title>
+
+  <!-- Meta -->
+  <meta name="description" content="SpatialWalk：实时、可交互、低成本端侧数字人SDK，赋予AI以灵魂。毫秒级延迟，极致性能，轻松集成。"/>
+  <meta property="og:title" content="SpatialWalk - 效果好、用得起的数字人"/>
+  <meta property="og:description" content="实时、可交互、低成本端侧数字人SDK，赋予AI以灵魂。"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="cover.jpg"/>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.png" sizes="32x32" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Header: landing时透明，下滑后加背景 -->
+  <header class="header" role="banner">
+    <div class="container header-inner">
+      <a class="logo" href="#" aria-label="SpatialWalk Home">SpatialWalk</a>
+      <nav class="nav" aria-label="Primary">
+        <ul>
+          <li><a href="#product">产品</a></li>
+          <li><a href="#use-cases">应用场景</a></li>
+          <li><a href="#technology">技术优势</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <!-- 新增 API 文档入口 -->
+          <li><a href="#api">API 文档</a></li>
+          <li><a href="#contact" class="cta-button">立即体验</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" aria-controls="mobile-menu" aria-expanded="false" aria-label="打开菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
+      <a href="#product">产品</a>
+      <a href="#use-cases">应用场景</a>
+      <a href="#technology">技术优势</a>
+      <a href="#faq">FAQ</a>
+      <!-- 新增 API 文档入口（移动端菜单） -->
+      <a href="#api">API 文档</a>
+      <a href="#contact" class="cta-button">立即体验</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <!-- <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-video-container" aria-hidden="true">
+        <video
+          src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-human-head-with-a-bright-light-32729-large.mp4"
+          autoplay muted loop playsinline preload="metadata"
+        ></video>
+      </div>
+      <div class="container hero-content-overlay">
+        <div class="hero-content">
+          <h1 id="hero-title">效果好、用得起的数字人</h1>
+          <h3>实时、可交互、低成本端侧数字人形象，打破数字交互的“不可能三角”。</h3>
+          <div class="hero-cta">
+            <a href="#product" class="cta-button">探索 SpatialWalk SDK</a>
+            <a href="#demo" class="cta-button cta-secondary">观看演示</a>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <section id="value" class="value-prop-section" aria-labelledby="value-title">
+      <div class="container value-prop">
+        <div class="vp-text">
+          <h2 id="value-title">效果好、用得起的数字人</h2>
+          <p>端侧实时推理 + 云端参数驱动，带来更低延迟、更强隐私与更可控的成本。</p>
+          <div class="vp-actions">
+            <a href="#contact" class="cta-button">预约演示</a>
+            <a href="#technology" class="cta-button cta-secondary">了解技术</a>
+          </div>
+        </div>
+        <div class="vp-video">
+          <video id="value-demo" class="vp-player"
+                 src="assets/demos/placeholder-vertical.mp4"
+                 preload="metadata" playsinline muted controls></video>
+        </div>
+      </div>
+    </section>
+
+
+
+
+<!-- 
+  <section id="partners" class="section_marquee partners" aria-labelledby="partners-title" class= hidden>
+    <div class="partners-head container">
+      <h2 id="partners-title" >合作伙伴</h2>
+    </div>
+    <div class="marquee" role="list">
+      <div class="marquee-track" id="partners-track">
+        <a class="logo-item" href="https://partner1.com" target="_blank" rel="noopener"
+           data-name="Partner One" data-desc="专注AI语音与合成领域的技术供应商。">
+          <img src="assets/logos/partner1.svg" alt="Partner One">
+        </a>
+        <a class="logo-item" href="https://partner2.com" target="_blank" rel="noopener"
+           data-name="Partner Two" data-desc="云边协同解决方案提供商。">
+          <img src="assets/logos/partner2.svg" alt="Partner Two">
+        </a>
+        <a class="logo-item" href="https://partner3.com" target="_blank" rel="noopener"
+           data-name="Partner Three" data-desc="终端推理加速与模型压缩。">
+          <img src="assets/logos/partner3.svg" alt="Partner Three">
+        </a>
+        <a class="logo-item" href="https://partner4.com" target="_blank" rel="noopener"
+           data-name="Partner Four" data-desc="3D 渲染与实时图形引擎。">
+          <img src="assets/logos/partner4.svg" alt="Partner Four">
+        </a>
+      </div>
+    </div> -->
+
+    <!-- 悬停提示浮层 -->
+    <div class="logo-tooltip" id="logo-tooltip" hidden>
+      <div class="logo-tooltip__name"></div>
+      <div class="logo-tooltip__desc"></div>
+      <a class="logo-tooltip__link" href="#" target="_blank" rel="noopener">访问官网 →</a>
+    </div>
+  </section>
+
+
+
+    <!-- Problem & Solution -->
+    <section class="problem-solution">
+      <div class="container">
+        <h2>在AI交互的核心领域，我们带来了一次彻底的革新</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>行业的“不可能三角”</h3>
+            <p>在AI浪潮席卷的时代，高保真、可规模化的数字形象技术长期受限于高昂的算力成本、漫长的渲染时间及僵硬的交互体验，构成了难以逾越的鸿沟。</p>
+          </div>
+          <div class="card">
+            <h3>SpatialWalk 的答案</h3>
+            <p>通过 3DGS + 端侧推理，我们将过去依赖云端集群的任务迁移至用户设备，以极低成本实现毫秒级实时互动。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology：三卡并列 -->
+    <section id="technology" aria-labelledby="tech-title">
+      <div class="container">
+            <h2 id="tech-title">超越工具：赋予AI以“灵魂”</h2>
+            <p class="section-subtitle">我们的技术路径: 3DGS路线 + 自研轻量化多模态模型 + 端侧实时推理</p>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>✅ 高保真与可编辑性</h3>
+                    <p>3DGS技术支持生成超写实、高保真的数字形象，并可进行多样化编辑。</p>
+                </div>
+                <div class="card">
+                    <h3>✅ 毫秒级精准同步</h3>
+                    <p>自研音素同步算法，实现毫秒级口型与语音完美匹配，并同步驱动五官、头部动作及个性化的说话习惯。</p>
+                </div>
+                <div class="card">
+                    <h3>✅ 实时与流畅驱动</h3>
+                    <p>3DMM参数化驱动模型确保数字形象的实时性、可控性与运动的连贯性。</p>
+                </div>
+                <div class="card">
+                    <h3>✅ 极致成本与效率</h3>
+                    <p>独特的云端结合推理渲染方案，在主流消费级设备上实现毫秒级延迟、低成本且高并发的实时运行。</p>
+                </div>
+            </div>
+        </div>
+       </section>
+
+      <section id="technology" aria-labelledby="tech-title">
+      <div class="container tech-tilt-wrap">、
+        <h2 id="tech-title">超越“对口型”：以“闲时交互”和高保真动态赋予数字人真实感</h2>
+        <p>SpatialWalk 首创“呼吸态”、“聆听态”、“思考态”等多种“闲时交互”状态，颠覆传统数字人的交互模式，带来自然流畅的人机交互体验。
+        </p>
+        <div class="tech-tilt-row">
+          <article class="tilt-card tilt-left" data-video="assets/videos/breath_state.mov" tabindex="0" role="button">
+            <div class="tilt-media"><video preload="metadata" playsinline muted controls></video></div>
+            <div class="tilt-text"><h3>有呼吸</h3><p> 当AI等待你的指令时，它会像真人一样轻轻地呼吸、眨眼、调整重心</p></div>
+          </article>
+          <article class="tilt-card tilt-center" data-video="assets/videos/listening_state.mov" tabindex="0" role="button">
+            <div class="tilt-media"><video preload="metadata" playsinline muted controls></video></div>
+            <div class="tilt-text"><h3>会聆听</h3><p>当你的声音响起，它会报以专注的眼神和微小的点头，如同老友倾听你的故事</p></div>
+          </article>
+     <!--      <article class="tilt-card tilt-right" data-video="assets/tech/tech3.mp4" tabindex="0" role="button">
+            <div class="tilt-media"><video preload="metadata" playsinline muted controls></video></div>
+            <div class="tilt-text"><h3>有回应</h3><p></p></div>
+          </article> -->
+        </div>
+      </div>
+    </section>
+
+
+   <!-- Product -->
+    <section id="product" aria-labelledby="product-title">
+      <div class="container">
+        <h2 id="product-title">SpatialWalk SDK：多模态AI交互的“乐高”积木</h2>
+        <p class="section-subtitle">我们专注 C 端实时交互场景的数字人 SDK 工具。</p>
+        <div class="grid-3">
+          <!-- 乐高积木功能卡片：根据标题添加对应图标 -->
+          <div class="card">
+            <div class="card-icon" data-icon="🎭"></div>
+            <h3>真人建模</h3>
+            <p>仅需 2 分钟真人视频素材，即可生成可驱动的超写实 3D 数字形象。</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" data-icon="⚡"></div>
+            <h3>极致性能</h3>
+            <p>90% 渲染在端侧完成，高清晰、低成本、毫秒级延迟。</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" data-icon="🔗"></div>
+            <h3>无缝集成</h3>
+            <p>适配主流 LLM / TTS，声音、表情、口型高度同步。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="use-cases" aria-labelledby="cases-title">
+      <div class="container">
+        <h2 id="cases-title">客户赋能：将技术价值落地</h2>
+        <div class="grid-3">
+          <div class="card case-card">
+            <h3>Talk AI：让虚拟教师“活”起来</h3>
+            <h4>🙁 核心痛点</h4>
+            <p>仅为循环动画短片，交互性弱，体验差。</p>
+            <h4>☺️ SpatialWalk 赋能</h4>
+            <p class="solution-text">接入 SDK，实时对话、精准口型、自然表情。</p>
+          </div>
+          <div class="card case-card">
+            <h3>听力熊：给儿童AI伙伴以“灵魂”</h3>
+            <h4>🙁 核心痛点</h4>
+            <p>方案成本高、清晰度低、易卡顿。</p>
+            <h4>☺️ SpatialWalk 赋能</h4>
+            <p class="solution-text">按设备授权的低成本 SDK，快速实现名人互动功能。</p>
+          </div>
+          <div class="card case-card">
+            <h3>蚂蚁百宝箱：赋能政企 AI Agent</h3>
+            <h4>🙁 核心痛点</h4>
+            <p>内建技术成本高、效果不足，商业化受阻。</p>
+            <h4>☺️ SpatialWalk 赋能</h4>
+            <p class="solution-text">作为插件能力提供商，低成本创建强互动 Agent 形象。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Competitive Table -->
+    <section class="competitive-advantage" aria-labelledby="adv-title">
+      <div class="container">
+        <h2 id="adv-title">超越对手：为什么 SpatialWalk 独树一帜</h2>
+        <p class="section-subtitle">我们是全球范围内，效果优秀且成本极低的商用 AI 数字形象供应商。</p>
+        <table class="comparison-table" role="table">
+          <thead>
+            <tr>
+              <th scope="col">特性</th>
+              <th scope="col">SpatialWalk (端侧渲染)</th>
+              <th scope="col">传统云端渲染方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>渲染原理</td>
+              <td>基于 3DGS，本地实时动态渲染。</td>
+              <td>GAN/Diffusion，服务端视频合成。</td>
+            </tr>
+            <tr>
+              <td>效果表现</td>
+              <td>可控性强，情绪化表达自然。</td>
+              <td>多为“换嘴”或录制头部，僵硬、机械感重。</td>
+            </tr>
+            <tr>
+              <td>驱动成本</td>
+              <td>仅推理驱动信号，算力消耗低 1–2 个数量级。</td>
+              <td>需合成完整视频流，算力需求巨大。</td>
+            </tr>
+            <tr>
+              <td>网络成本</td>
+              <td>仅传输 10–20KB/s 参数包。</td>
+              <td>需传输 ≥ 2Mbps 视频流，易受波动影响。</td>
+            </tr>
+            <tr>
+              <td>接入成本</td>
+              <td>即插即用 SDK，无需自建服务端。</td>
+              <td>需自建/维护服务端，复杂且费时。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Demo / Contact CTA -->
+    <section id="demo" class="final-cta" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 id="cta-title">探索下一个亿级用户场景</h2>
+        <p>在 AI 浪潮的下半场，谁能赋予 AI 以“灵魂”，谁就能赢得未来。与 SpatialWalk 一起，探索无限可能！</p>
+        <p></p>
+        <a href="#contact" class="cta-button">预约演示 / 联系我们</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 id="faq-title">常见问题</h2>
+        <div class="faq-list">
+          <details class="faq-item reveal">
+            <summary>端侧设备最低配置要求？</summary>
+            <p>常见中端移动芯片或独显/核显笔记本即可流畅运行（依据性能和形象复杂度效果略有差异）。</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>如何与现有 LLM / TTS 集成？</summary>
+            <p>SDK 提供统一接口，适配主流 LLM / TTS 服务，几行代码即可接入。</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>隐私与带宽占用如何？</summary>
+            <p>仅传输驱动参数，带宽占用极低；可选本地化处理策略，保护隐私。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 id="contact-title">联系我们</h2>
+        <div class="contact-strip reveal">
+          <div class="contact-col">
+            <p>想快速评估接入可行性？留下联系方式，我们会尽快回访。</p>
+            <ul class="contact-points">
+              <li>✉️ hello@spatialwalk.net</li>
+              <li>🗓️ 提交需求后可预约进一步洽谈</li>
+            </ul>
+          </div>
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('已收到，我们会尽快联系你！');">
+            <label>
+              <span>姓名</span>
+              <input type="text" placeholder="你的称呼" required />
+            </label>
+            <label>
+              <span>邮箱/微信号</span>
+              <input type="email" placeholder="name@example.com" required />
+            </label>
+            <label>
+              <span>需求简述</span>
+              <textarea rows="3" placeholder="使用场景、终端设备、预计用户量等"></textarea>
+            </label>
+            <button type="submit" class="cta-button">提交</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="logo">SpatialWalk</div>
+      <ul class="links" role="list">
+        <li><a href="#product">产品</a></li>
+        <li><a href="#use-cases">应用场景</a></li>
+        <li><a href="#technology">技术优势</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <p class="copyright">© 2025 SpatialWalk. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 合并后的脚本：统一处理头部交互、移动菜单、进场动画、卡片切换、合作伙伴滚动与悬浮提示 -->
+  <script src="app.js" defer></script>
+
+
+</body>
+</html>
+
+
