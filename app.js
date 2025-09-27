@@ -18,7 +18,7 @@ if (hamburger && mobileMenu) {
   });
 }
 
-/* ================= Reveal Animations ================= */
+/* ================= Reveal 动画 ================= */
 (() => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReduced && 'IntersectionObserver' in window) {
@@ -52,7 +52,7 @@ if (hamburger && mobileMenu) {
 })();
 
 
-/* ================= Demo Video Adjustment ================= */
+/* ================= Demo Video  ================= */
 document.addEventListener('DOMContentLoaded', () => {
   const videoPlayer = document.getElementById('value-demo');
   if (videoPlayer) {
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ===================================================
-   Lottie Animation Loader
+   Lottie 动画
    =================================================== */
 document.addEventListener('DOMContentLoaded', function() {
   
