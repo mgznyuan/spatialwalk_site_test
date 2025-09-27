@@ -31,38 +31,40 @@ if (hamburger && mobileMenu) {
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+
+    // FIX: Observer for the new multi-stage trilemma animation
+    const trilemmaWrapper = document.getElementById('trilemma-container');
+    if (trilemmaWrapper) {
+      const trilemmaObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // After the intro animation completes, add a class to trigger the next stage
+            setTimeout(() => {
+              entry.target.classList.add('animate-complete');
+            }, 3200); // Timed to start after logo appears
+            trilemmaObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      trilemmaObserver.observe(trilemmaWrapper);
+    }
   }
 })();
 
-/* ================= Landing Video Aspect Ratio (Fixed) ================= */
-// We wrap this in a DOMContentLoaded event to ensure the element exists when we try to select it.
+
+/* ================= Demo Video Adjustment ================= */
 document.addEventListener('DOMContentLoaded', () => {
   const videoPlayer = document.getElementById('value-demo');
   if (videoPlayer) {
-    // This event fires when the browser has loaded metadata for the video.
-    videoPlayer.addEventListener('loadedmetadata', () => {
-      const videoWidth = videoPlayer.videoWidth;
-      const videoHeight = videoPlayer.videoHeight;
-      // We check for valid dimensions to avoid errors.
-      if (videoWidth > 0 && videoHeight > 0) {
-        // We remove the fixed aspect ratio from the parent container and set it on the video itself.
-        if (videoPlayer.parentElement) {
-            videoPlayer.parentElement.style.aspectRatio = 'auto';
-        }
-        videoPlayer.style.aspectRatio = `${videoWidth} / ${videoHeight}`;
-      }
+    videoPlayer.addEventListener('error', (err) => {
+      console.error('Video loading error:', err);
     });
-    // This handles cases where the video might already be loaded (e.g., from cache).
-    if (videoPlayer.readyState >= 1) {
-        videoPlayer.dispatchEvent(new Event('loadedmetadata'));
-    }
+    videoPlayer.load();
   }
 });
 
 
-/* ===== 技术优势卡片交互 (全部自动播放) ===== */
+/* ===== 技术优势卡片视频 ===== */
 (() => {
   const cards = document.querySelectorAll('.tech-tilt-row .tilt-card');
   if (!cards || cards.length === 0) return;
@@ -72,72 +74,37 @@ document.addEventListener('DOMContentLoaded', () => {
       const video = card.querySelector('video');
       const src = card.getAttribute('data-video');
       if (video && src) {
-        // Set video attributes
         video.src = src;
         video.loop = true;
         video.muted = true;
         video.playsInline = true;
-        
-        // Attempt to play the video
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            // Autoplay was prevented.
-            console.warn("Autoplay was prevented for video:", src, error);
-          });
-        }
+        video.play().catch(error => {});
       }
     });
   }
-
-  // Call the function to set up and play all videos on page load
   setupAndPlayAllVideos();
-
-  // The click-to-play interaction has been removed as all videos now autoplay.
 })();
 
-/* ===== 合作伙伴：无缝滚动 + 悬停提示 (代码保留，但HTML中已隐藏) ===== */
-(() => {
-  const track = document.getElementById('partners-track');
-  if (!track) return;
-  // 复制一份以实现无缝滚动
-  const originalContent = track.innerHTML;
-  track.innerHTML += originalContent;
 
-  const tooltip = document.getElementById('logo-tooltip');
-  if (!tooltip) return;
+/* ===================================================
+   Lottie Animation Loader
+   =================================================== */
+document.addEventListener('DOMContentLoaded', function() {
   
-  const nameEl  = tooltip.querySelector('.logo-tooltip__name');
-  const descEl  = tooltip.querySelector('.logo-tooltip__desc');
-  const linkEl  = tooltip.querySelector('.logo-tooltip__link');
+  const loadLottieAnimation = (containerId, path) => {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    lottie.loadAnimation({
+      container: container,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: path
+    });
+  };
 
-  function showTip(a, x, y){
-    if (!nameEl || !descEl || !linkEl) return;
-    nameEl.textContent = a.dataset.name || a.querySelector('img')?.alt || '合作伙伴';
-    descEl.textContent = a.dataset.desc || '';
-    linkEl.href = a.href || '#';
-    tooltip.hidden = false;
-    const pad = 12;
-    const { innerWidth: W, innerHeight: H } = window;
-    let left = x + pad, top = y + pad;
-    tooltip.style.left = left + 'px';
-    tooltip.style.top  = top  + 'px';
-    const rect = tooltip.getBoundingClientRect();
-    if (rect.right > W) tooltip.style.left = (W - rect.width  - pad) + 'px';
-    if (rect.bottom > H) tooltip.style.top = (H - rect.height - pad) + 'px';
-  }
-  function hideTip(){ if (tooltip) tooltip.hidden = true; }
-
-  document.querySelectorAll('.marquee .logo-item').forEach(a => {
-    a.addEventListener('mouseenter', e => showTip(a, e.clientX, e.clientY));
-    a.addEventListener('mousemove',  e => showTip(a, e.clientX, e.clientY));
-    a.addEventListener('mouseleave', hideTip);
-    a.addEventListener('touchstart', e => {
-      const t = e.touches[0]; showTip(a, t.clientX, t.clientY);
-    }, {passive:true});
-  });
-  document.addEventListener('touchstart', e => {
-    if (!e.target.closest('.logo-item')) hideTip();
-  }, {passive:true});
-})();
-
+  loadLottieAnimation('lottie-modeling-icon', 'assets/animations/Pause_Play.json');
+  loadLottieAnimation('lottie-rocket-icon', 'assets/animations/Rocket_Go.json');
+  loadLottieAnimation('lottie-tool-icon', 'assets/animations/tool.json');
+});
