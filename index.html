@@ -39,12 +39,14 @@
       </button>
     </div>
     <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
-     <li><a href="#trilemma">技术优势</a></li>
-      <li><a href="#product">产品</a></li>
-      <li><a href="#use-cases">客户赋能</a></li>
-      <li><a href="#team">团队</a></li>
-      <li><a href="#faq">Q&A</a></li>
-      <li><a href="#contact">联系我们</a></li>
+      <ul>
+        <li><a href="#trilemma">技术优势</a></li>
+        <li><a href="#product">产品</a></li>
+        <li><a href="#use-cases">客户赋能</a></li>
+        <li><a href="#team">团队</a></li>
+        <li><a href="#faq">Q&A</a></li>
+        <li><a href="#contact">联系我们</a></li>
+      </ul>
     </nav>
   </header>
 
@@ -63,6 +65,10 @@
         </div>
         <div class="vp-video">
           <div class="vp-player-container">
+            <div id="video-loader" class="video-loader">
+              <div class="loading-spinner"></div>
+              <p>视频加载中...</p>
+            </div>
             <video id="value-demo" class="vp-player"
                    src="assets/videos/demo_clip.mp4"
                    preload="auto" autoplay muted loop playsinline></video>

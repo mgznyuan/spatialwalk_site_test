@@ -73,10 +73,37 @@ if (hamburger && mobileMenu) {
 /* ================= Demo Video  ================= */
 document.addEventListener('DOMContentLoaded', () => {
   const videoPlayer = document.getElementById('value-demo');
-  if (videoPlayer) {
+  const videoLoader = document.getElementById('video-loader');
+  
+  if (videoPlayer && videoLoader) {
+    // 视频加载开始时显示加载动画
+    videoLoader.classList.remove('hidden');
+    
+    // 设置超时机制，确保加载动画在一定时间后消失
+    const loadTimeout = setTimeout(() => {
+      videoLoader.classList.add('hidden');
+    }, 8000); // 8秒后自动隐藏
+    
+    // 视频加载完成时隐藏加载动画
+    videoPlayer.addEventListener('loadeddata', () => {
+      clearTimeout(loadTimeout); // 清除超时
+      videoLoader.classList.add('hidden');
+    });
+    
+    // 视频播放开始时隐藏加载动画（作为后备）
+    videoPlayer.addEventListener('play', () => {
+      clearTimeout(loadTimeout); // 清除超时
+      videoLoader.classList.add('hidden');
+    });
+    
+    // 视频加载错误处理
     videoPlayer.addEventListener('error', (err) => {
       console.error('Video loading error:', err);
+      clearTimeout(loadTimeout); // 清除超时
+      // 错误情况下也隐藏加载动画
+      videoLoader.classList.add('hidden');
     });
+    
     videoPlayer.load();
   }
 });
