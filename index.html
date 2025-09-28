@@ -14,23 +14,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <!-- <link rel="icon" href="/icon.png" sizes="32x32" /> -->
+  <!-- <link rel="icon" href="icon.png" sizes="32x32" /> -->
   <link rel="stylesheet" href="style.css" />
-  <script src="particle-logo.js" defer></script>
+    <script src="particle-logo.js" defer></script>
 </head>
 
 <body>
   <header class="header" role="banner">
     <div class="container header-inner">
-      <a class="logo" href="#" aria-label="SpatialWalk Home">SpatialWalk</a>
+      <a class="logo particle-logo-trigger" href="#" aria-label="SpatialWalk Home"><span>SpatialWalk</span></a>
       <nav class="nav" aria-label="Primary">
         <ul>
+                 
+          <li><a href="#trilemma">技术优势</a></li>
           <li><a href="#product">产品</a></li>
-          <li><a href="#technology">技术优势</a></li>
-          <!-- <li><a href="#competitive-advantage"></a></li> -->
           <li><a href="#use-cases">客户赋能</a></li>
           <li><a href="#team">团队</a></li>
-          <li><a href="#contact" class="cta-button">立即体验</a></li>
+          <li><a href="#faq">Q&A</a></li>
+          <li><a href="#contact">联系我们</a></li>
         </ul>
       </nav>
       <button class="hamburger" aria-controls="mobile-menu" aria-expanded="false" aria-label="打开菜单">
@@ -38,26 +39,26 @@
       </button>
     </div>
     <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
-      <a href="#product">产品</a>
-      <a href="#technology">技术优势</a>
-      <!-- <a href="#competitive-advantage">超越对手</a> -->
-      <a href="#use-cases">客户赋能</a>
-      <a href="#team">团队</a>
-      <a href="community.html">共创营</a>
-      <a href="api.html">API 文档</a>
-      <a href="#contact" class="cta-button">立即体验</a>
+     <li><a href="#trilemma">技术优势</a></li>
+      <li><a href="#product">产品</a></li>
+      <li><a href="#use-cases">客户赋能</a></li>
+      <li><a href="#team">团队</a></li>
+      <li><a href="#faq">Q&A</a></li>
+      <li><a href="#contact">联系我们</a></li>
     </nav>
   </header>
 
   <main>
     <section id="value" class="value-prop-section" aria-labelledby="value-title">
-      <div class="container value-prop">
+      <div class="value-prop">
         <div class="vp-text">
-          <h2 id="value-title">效果好、用得起的<br>实时交互数字人</h2>
-          <p class="text-lg">端侧实时推理 + 云端参数驱动，带来更低延迟、更优效果与更可控的成本。</p>
-          <div class="vp-actions">
-            <a href="#contact" class="cta-button">预约演示</a>
-            <a href="#technology" class="cta-button cta-secondary">了解技术</a>
+          <div class="container">
+            <h2 id="value-title">效果好、用得起的<br>实时交互数字人</h2>
+            <p class="text-lg">端侧实时推理 + 云端参数驱动，带来更低延迟、更优效果与更可控的成本。</p>
+            <div class="vp-actions">
+              <a href="#contact" class="cta-button">预约演示</a>
+              <a href="#technology" class="cta-button cta-secondary">了解技术</a>
+            </div>
           </div>
         </div>
         <div class="vp-video">
@@ -75,26 +76,32 @@
           <h2 id="trilemma-title" class="reveal">打破数字形象应用的不可能三角</h2>
           <p class="section-subtitle reveal">我们不传输视频流，我们传输生命力。</p>
           <div class="trilemma-wrapper reveal" id="trilemma-container">
-              <div class="trilemma-node node-realism">
-                  <h4>效果逼真</h4>
-                  <p>传统异步视频生成方案如HeyGen，效果好但无法实时互动。</p>
-              </div>
-              <div class="trilemma-node node-cost">
-                  <h4>成本可控</h4>
-                  <p>传统云端渲染方式成本高昂，阻碍了大规模应用。</p>
-              </div>
-              <div class="trilemma-node node-latency">
-                  <h4>零延迟互动</h4>
-                  <p>传统实时方案为保障速度，牺牲了画质与真实感。</p>
-              </div>
               <div class="trilemma-center">
                   <h3>SpatialWalk</h3>
                   <p>低成本端侧数字形象解决方案</p>
                   <div class="glow-text">解决数字形象交互三大难题</div>
               </div>
+              <div class="trilemma-carousel">
+                  <div class="trilemma-nodes-container">
+                      <div class="trilemma-node node-realism">
+                          <h4>效果逼真</h4>
+                          <p>传统异步视频生成方案如HeyGen，效果好但无法实时互动。</p>
+                      </div>
+                      <div class="trilemma-node node-cost">
+                          <h4>成本可控</h4>
+                          <p>传统云端渲染方式成本高昂，阻碍了大规模应用。</p>
+                      </div>
+                      <div class="trilemma-node node-latency">
+                          <h4>零延迟互动</h4>
+                          <p>传统实时方案为保障速度，牺牲了画质与真实感。</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="carousel-arrow carousel-arrow-left" aria-label="Previous slide"></div>
+              <div class="carousel-arrow carousel-arrow-right" aria-label="Next slide"></div>
           </div>
       </div>
-  </section>
+    </section>
 
 
     <section id="tech-features" class="tech-features-section" aria-labelledby="tech-features-title">
@@ -122,11 +129,12 @@
         </div>
     </section>
 
-    <section id="technology" aria-labelledby="tech-title-interaction">
+    <section id="technology" class="tech-demo-section" aria-labelledby="tech-title-interaction">
       <div class="container tech-tilt-wrap">
         <h2 id="tech-title-interaction" class="reveal">超越“对口型”：以“闲时交互”赋予数字人真实感</h2>
         <p class="section-subtitle reveal">首创“呼吸态”、“聆听态”等多种“闲时交互”，颠覆传统交互模式，带来自然流畅的人机体验。</p>
-        <div class="tech-tilt-row">
+        
+        <div class="tech-tilt-row desktop-only">
           <article class="tilt-card tilt-left reveal" data-video="assets/videos/breath_state.mov" tabindex="0" role="button">
             <div class="tilt-media"><video preload="metadata" playsinline muted loop></video></div>
             <div class="tilt-text"><h3>有呼吸</h3><p>当AI等待你的指令时，它会像真人一样轻轻地呼吸、眨眼。</p></div>
@@ -135,6 +143,29 @@
             <div class="tilt-media"><video preload="metadata" playsinline muted loop></video></div>
             <div class="tilt-text"><h3>会聆听</h3><p>当你的声音响起，它会报以专注的眼神和微小的点头。</p></div>
           </article>
+        </div>
+
+        <div class="tech-demo-carousel-wrapper mobile-only">
+          <div class="tech-demo-container-outer">
+            <div class="tech-demo-container">
+              <div class="tech-demo-slide">
+                <video src="assets/videos/breath_state.mov" preload="metadata" playsinline muted loop autoplay></video>
+                <div class="tech-demo-caption">
+                  <h3>有呼吸</h3>
+                  <p>当AI等待你的指令时，它会像真人一样轻轻地呼吸、眨眼。</p>
+                </div>
+              </div>
+              <div class="tech-demo-slide">
+                <video src="assets/videos/listening_state.mov" preload="metadata" playsinline muted loop autoplay></video>
+                <div class="tech-demo-caption">
+                  <h3>会聆听</h3>
+                  <p>当你的声音响起，它会报以专注的眼神和微小的点头。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-arrow carousel-arrow-left" aria-label="Previous slide"></div>
+          <div class="carousel-arrow carousel-arrow-right" aria-label="Next slide"></div>
         </div>
       </div>
     </section>
@@ -219,7 +250,7 @@
                 <div class="case-content">
                   <h4>核心痛点</h4>
                 </div>
-                <p>仅为循环动画短片，交互性弱，体验差。</p>
+                <p>之前的AI口语外教仅为循环动画短片，交互性弱，体验差。</p>
               </div>
               <div class="case-card-back">
                 <h3 class="gradient-text">SpatialWalk 赋能</h3>
@@ -249,7 +280,7 @@
                 <div class="case-content">
                   <h4>核心痛点</h4>
                 </div>
-                <p>内建数字人技术成本高、效果不足，商业化受阻。</p>
+                <p>公司内建数字人技术成本高、效果不足，商业化困难。</p>
               </div>
               <div class="case-card-back">
                 <h3 class="gradient-text">SpatialWalk 赋能</h3>
@@ -364,21 +395,6 @@
               <li>🗓️ 提交需求后可预约进一步洽谈</li>
             </ul>
           </div>
-          <!-- <form class="contact-form hidden">
-            <label>
-              <span>姓名</span>
-              <input type="text" placeholder="你的称呼" required />
-            </label>
-            <label>
-              <span>邮箱/微信号</span>
-              <input type="email" placeholder="name@example.com" required />
-            </label>
-            <label>
-              <span>需求简述</span>
-              <textarea rows="3" placeholder="使用场景、终端设备、预计用户量等"></textarea>
-            </label>
-            <button type="submit" class="cta-button">提交</button>
-          </form> -->
           <a href="https://www.wjx.cn/vm/mjpyAQx.aspx#" class="cta-button" style="display: inline-block; padding: 12px 24px; text-decoration: none;">联系我们</a>
         </div>
       </div>
@@ -387,13 +403,13 @@
 
   <footer class="footer" role="contentinfo">
     <div class="container">
-      <div class="logo">SpatialWalk</div>
+      <div class="logo reveal"><span>SpatialWalk</span></div>
       <ul class="links" role="list">
-        <li><a href="#product">产品</a></li>
-        <li><a href="#technology">技术优势</a></li>
-        <!-- <li><a href="#competitive-advantage">超越对手</a></li> -->
-        <li><a href="#use-cases">客户赋能</a></li>
-        <li><a href="#team">团队</a></li>
+        <li><a href="#trilemma">技术优势</a></li>
+          <li><a href="#product">产品</a></li>
+          <li><a href="#use-cases">客户赋能</a></li>
+          <li><a href="#team">团队</a></li>
+          <li><a href="#faq">Q&A</a></li>
         </ul>
       <p class="copyright">© 2025 SpatialWalk. All Rights Reserved.</p>
     </div>

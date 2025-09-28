@@ -22,6 +22,7 @@ if (hamburger && mobileMenu) {
 (() => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReduced && 'IntersectionObserver' in window) {
+    // General reveal-on-scroll for sections
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -30,27 +31,44 @@ if (hamburger && mobileMenu) {
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal:not(.particle-logo-trigger)').forEach(el => io.observe(el));
 
-    // FIX: Observer for the new multi-stage trilemma animation
+    // Desktop-only animation for trilemma repositioning
     const trilemmaWrapper = document.getElementById('trilemma-container');
-    if (trilemmaWrapper) {
+    if (trilemmaWrapper && window.innerWidth > 820) { // Use new breakpoint
       const trilemmaObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // After the intro animation completes, add a class to trigger the next stage
+            // FIX: Speed up animation
             setTimeout(() => {
               entry.target.classList.add('animate-complete');
-            }, 3200); // Timed to start after logo appears
+            }, 1800); // Was 3200
             trilemmaObserver.unobserve(entry.target);
           }
         });
       }, { threshold: 0.5 });
       trilemmaObserver.observe(trilemmaWrapper);
     }
+    
+    // Observer for scroll-triggered particle logos (footer on desktop)
+    const particleLogoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (window.getComputedStyle(entry.target).display !== 'none') {
+                    if (window.createParticleAnimation) {
+                        window.createParticleAnimation(entry.target);
+                    }
+                }
+                particleLogoObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.8 });
+
+    document.querySelectorAll('.particle-logo-trigger.reveal').forEach(logo => {
+        particleLogoObserver.observe(logo);
+    });
   }
 })();
-
 
 /* ================= Demo Video  ================= */
 document.addEventListener('DOMContentLoaded', () => {
@@ -62,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     videoPlayer.load();
   }
 });
-
 
 /* ===== 技术优势卡片视频 ===== */
 (() => {
@@ -85,6 +102,141 @@ document.addEventListener('DOMContentLoaded', () => {
   setupAndPlayAllVideos();
 })();
 
+/* ===================================================
+   手机端不可能三角轮播 (Mobile Trilemma Carousel)
+   =================================================== */
+(() => {
+  if (window.innerWidth > 820) return;
+
+  const container = document.getElementById('trilemma-container');
+  if (!container) return;
+
+  const nodesContainer = container.querySelector('.trilemma-nodes-container');
+  const carousel = container.querySelector('.trilemma-carousel');
+  const slides = Array.from(nodesContainer.children);
+  const leftArrow = container.querySelector('.carousel-arrow-left');
+  const rightArrow = container.querySelector('.carousel-arrow-right');
+  
+  if (slides.length === 0 || !carousel || !leftArrow || !rightArrow) return;
+
+  let currentIndex = 0;
+  let autoplayInterval;
+
+  function updateCarousel() {
+      const slideStyle = getComputedStyle(slides[0]);
+      const slideMargin = parseFloat(slideStyle.marginLeft) + parseFloat(slideStyle.marginRight);
+      const slideWidth = slides[0].offsetWidth + slideMargin;
+      
+      const offset = (carousel.offsetWidth / 2) - (slideWidth / 2) - (currentIndex * slideWidth);
+      nodesContainer.style.transform = `translateX(${offset}px)`;
+
+      slides.forEach((slide, index) => {
+          slide.classList.toggle('active', index === currentIndex);
+      });
+  }
+
+  function goToSlide(index) {
+      currentIndex = (index + slides.length) % slides.length;
+      updateCarousel();
+  }
+  
+  function startAutoplay() {
+      stopAutoplay();
+      autoplayInterval = setInterval(() => {
+          goToSlide(currentIndex + 1);
+      }, 5000);
+  }
+
+  function stopAutoplay() {
+      clearInterval(autoplayInterval);
+  }
+
+  leftArrow.addEventListener('click', () => {
+      goToSlide(currentIndex - 1);
+      stopAutoplay();
+      startAutoplay();
+  });
+  rightArrow.addEventListener('click', () => {
+      goToSlide(currentIndex + 1);
+      stopAutoplay();
+      startAutoplay();
+  });
+
+  let touchStartX = 0;
+  carousel.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      stopAutoplay();
+  }, { passive: true });
+  carousel.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].clientX;
+      if (touchStartX - touchEndX > 50) {
+          goToSlide(currentIndex + 1);
+      } else if (touchEndX - startX > 50) {
+          goToSlide(currentIndex - 1);
+      }
+      startAutoplay();
+  });
+
+  setTimeout(() => {
+      goToSlide(0);
+      startAutoplay();
+  }, 100);
+  window.addEventListener('resize', updateCarousel);
+})();
+
+
+/* ===================================================
+   手机端超越对口型轮播 (Mobile Tech Demo Carousel)
+   =================================================== */
+(() => {
+    if (window.innerWidth > 820) return;
+
+    const section = document.getElementById('technology');
+    if (!section) return;
+
+    const carouselWrapper = section.querySelector('.tech-demo-carousel-wrapper.mobile-only');
+    if (!carouselWrapper) return;
+
+    const demoContainer = carouselWrapper.querySelector('.tech-demo-container');
+    const slides = Array.from(demoContainer.children);
+    const leftArrow = carouselWrapper.querySelector('.carousel-arrow-left');
+    const rightArrow = carouselWrapper.querySelector('.carousel-arrow-right');
+    
+    if (slides.length === 0 || !leftArrow || !rightArrow) return;
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        // FIX: Re-implement slide logic to account for the CSS gap property
+        const slideWidth = slides[0].offsetWidth;
+        const gapStyle = getComputedStyle(demoContainer).gap;
+        const gap = parseFloat(gapStyle) || 0;
+        const offset = -currentIndex * (slideWidth + gap);
+        demoContainer.style.transform = `translateX(${offset}px)`;
+    }
+
+    function goToSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+        updateCarousel();
+    }
+
+    leftArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
+    rightArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
+    
+    let touchStartX = 0;
+    carouselWrapper.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, { passive: true });
+    carouselWrapper.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].clientX;
+        if (touchStartX - touchEndX > 50) {
+            goToSlide(currentIndex + 1);
+        } else if (touchEndX - touchStartX > 50) {
+            goToSlide(currentIndex - 1);
+        }
+    });
+
+    updateCarousel();
+    window.addEventListener('resize', updateCarousel);
+})();
 
 /* ===================================================
    Lottie 动画
@@ -108,3 +260,63 @@ document.addEventListener('DOMContentLoaded', function() {
   loadLottieAnimation('lottie-rocket-icon', 'assets/animations/Rocket_Go.json');
   loadLottieAnimation('lottie-tool-icon', 'assets/animations/tool.json');
 });
+
+/* ===================================================
+   FIX: Flip Card on Click/Tap
+   =================================================== */
+(() => {
+  // Select all types of flip cards
+  const flipCards = document.querySelectorAll('.case-card, .team-card');
+
+  if (!flipCards || flipCards.length === 0) return;
+
+  flipCards.forEach(card => {
+    // Make card focusable for accessibility
+    card.setAttribute('tabindex', '0');
+    
+    const clickOrTapHandler = (e) => {
+      // Find the inner element to apply the flip class to
+      const inner = card.querySelector('.case-card-inner, .team-card-inner');
+      if (inner) {
+        e.preventDefault();
+        inner.classList.toggle('is-flipped');
+      }
+    };
+    
+    const keydownHandler = (e) => {
+      if (e.code === 'Enter' || e.code === 'Space') {
+        const inner = card.querySelector('.case-card-inner, .team-card-inner');
+        if (inner) {
+          e.preventDefault();
+          inner.classList.toggle('is-flipped');
+        }
+      }
+    };
+
+    card.addEventListener('click', clickOrTapHandler);
+    card.addEventListener('keydown', keydownHandler);
+  });
+})();
+
+/* ===================================================
+   FIX: Mobile Menu Auto-Close on Link Click
+   =================================================== */
+(() => {
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburger = document.querySelector('.hamburger');
+  if (!mobileMenu || !hamburger) return;
+
+  const menuLinks = mobileMenu.querySelectorAll('a');
+
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      // Only close if the menu is open
+      if (mobileMenu.classList.contains('open')) {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+})();
