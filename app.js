@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
       stopAutoplay();
       autoplayInterval = setInterval(() => {
           goToSlide(currentIndex + 1);
-      }, 5000);
+      }, 3000);
   }
 
   function stopAutoplay() {
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const touchEndX = e.changedTouches[0].clientX;
       if (touchStartX - touchEndX > 50) {
           goToSlide(currentIndex + 1);
-      } else if (touchEndX - startX > 50) {
+      } else if (touchEndX - touchStartX > 50) {
           goToSlide(currentIndex - 1);
       }
       startAutoplay();
@@ -234,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
     
     function updateCarousel() {
-        // FIX: Re-implement slide logic to account for the CSS gap property
         const slideWidth = slides[0].offsetWidth;
         const gapStyle = getComputedStyle(demoContainer).gap;
         const gap = parseFloat(gapStyle) || 0;
@@ -289,13 +288,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ===================================================
-   FIX: Flip Card on Click/Tap
+  Flip Card on Click/Tap
    =================================================== */
 (() => {
   // Select all types of flip cards
   const flipCards = document.querySelectorAll('.case-card, .team-card');
 
   if (!flipCards || flipCards.length === 0) return;
+
+  // Function to reset all flipped cards
+  const resetAllFlippedCards = () => {
+    const allFlippedCards = document.querySelectorAll('.case-card-inner.is-flipped, .team-card-inner.is-flipped');
+    allFlippedCards.forEach(flippedCard => {
+      flippedCard.classList.remove('is-flipped');
+    });
+  };
 
   flipCards.forEach(card => {
     // Make card focusable for accessibility
@@ -306,7 +313,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const inner = card.querySelector('.case-card-inner, .team-card-inner');
       if (inner) {
         e.preventDefault();
-        inner.classList.toggle('is-flipped');
+        // Check if the card is already flipped
+        const isAlreadyFlipped = inner.classList.contains('is-flipped');
+        
+        // Reset all other flipped cards
+        resetAllFlippedCards();
+        
+        // Only toggle if it wasn't already flipped
+        if (!isAlreadyFlipped) {
+          inner.classList.add('is-flipped');
+        }
       }
     };
     
@@ -315,13 +331,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const inner = card.querySelector('.case-card-inner, .team-card-inner');
         if (inner) {
           e.preventDefault();
-          inner.classList.toggle('is-flipped');
+          // Check if the card is already flipped
+          const isAlreadyFlipped = inner.classList.contains('is-flipped');
+          
+          // Reset all other flipped cards
+          resetAllFlippedCards();
+          
+          // Only toggle if it wasn't already flipped
+          if (!isAlreadyFlipped) {
+            inner.classList.add('is-flipped');
+          }
         }
       }
     };
 
     card.addEventListener('click', clickOrTapHandler);
     card.addEventListener('keydown', keydownHandler);
+  });
+
+  // Add global click event to reset cards when clicking outside
+  document.addEventListener('click', (e) => {
+    // Check if the clicked element is not a flip card or its descendant
+    let isClickInsideCard = false;
+    flipCards.forEach(card => {
+      if (card.contains(e.target)) {
+        isClickInsideCard = true;
+      }
+    });
+
+    // If click is outside all cards, reset all flipped cards
+    if (!isClickInsideCard) {
+      resetAllFlippedCards();
+    }
   });
 })();
 
@@ -336,7 +377,30 @@ document.addEventListener('DOMContentLoaded', function() {
   const menuLinks = mobileMenu.querySelectorAll('a');
 
   menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      // Handle anchor links
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#') && href !== '#') {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Get header height for proper offset
+          const header = document.querySelector('.header');
+          const headerHeight = header ? header.offsetHeight : 80; // Default to 80px if header not found
+          
+          // Calculate scroll position with offset
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          // Smooth scroll to target with offset
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }
+      
       // Only close if the menu is open
       if (mobileMenu.classList.contains('open')) {
         hamburger.classList.remove('open');

@@ -1,11 +1,10 @@
 /**
  * Particle Logo Animation v10 - Reusable Function
- * - FIX: Added a check to disable the animation entirely on mobile devices.
  */
 
 // Make the animation function globally accessible
 window.createParticleAnimation = function(logoContainer) {
-    // FIX: Do not run the animation on mobile screens
+
     if (window.innerWidth <= 768) {
         return;
     }
@@ -161,12 +160,11 @@ window.createParticleAnimation = function(logoContainer) {
         document.fonts.load(`800 12px Inter`).then(() => {
             setupAndCreateParticles();
             animate();
-            // FIX: Shorten animation delays to ensure logo text appears faster
             setTimeout(() => {
                 setTimeout(() => {
                     startFadeToBlack = true;
-                }, 500); // Was 800
-            }, 800); // Was 1500
+                }, 500); 
+            }, 800); 
         }).catch(err => {
             console.error("Font failed to load, attempting to draw anyway.", err);
             setupAndCreateParticles();
